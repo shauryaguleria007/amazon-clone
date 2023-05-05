@@ -18,14 +18,21 @@ export const userSlice = createSlice({
             let push = true
             state.cart.map((product) => {
                 if (product.id === action.payload.id) {
-                    product.quantity+=action.payload.quantity
+                    product.quantity += action.payload.quantity
                     push = false
                 }
             })
             if (push) state.cart.push(action.payload)
-            
+
+        },
+        resetUser: (state) => {
+            return {
+                user: null,
+                cart: []
+            }
+
         }
     }
 })
-export const { addUser, addToBasket } = userSlice.actions
+export const { addUser, addToBasket ,resetUser} = userSlice.actions
 export default userSlice.reducer

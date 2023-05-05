@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./Register.css"
 import { Link, useNavigate } from "react-router-dom";
+import { useRegisterUserMutation } from "../../store/services/authService"
+import { useEffect } from 'react';
 
 export const Register = () => {
   const anchLink = `https://amazon.in/gp/help/customer/display.html/ref=ap_signin_notification_condition_of_use?ie=UTF8&nodeId=200545940`;
@@ -8,11 +10,29 @@ export const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reenterPassword, setReenderPassword] = useState('');
+  const [registerUser, { data, error, isFetching }] = useRegisterUserMutation()
+  const navigate = useNavigate()
 
-  const signIn = (e) => {
+
+  const signIn = async (e) => {
     e.preventDefault()
+    if (name !== "" && email !== "" && password !== "" && password === reenterPassword) {
+      await registerUser({
+        fullname: name,
+        mobile: email,
+        password
+      })
+    }
   }
 
+
+
+  useEffect(() => {
+    if (data) {
+      console.log("data");
+      return navigate("/login")
+     }
+  }, [data])
   return (
     <div className="login">
       <Link to="/">
@@ -34,10 +54,7 @@ export const Register = () => {
           <h5 className="credential_name" id="mailText">Re-enter password</h5>
           <input type="password" className="input_box" value={reenterPassword} id="mailBox" onChange={e => setReenderPassword(e.target.value)} style={{ background: "white" }} />
 
-          <Link to='/'>
-            <button id="Continuebutton" >Continue</button>
-          </Link>
-          <button className="loginsign_button" id="signInbutton" type="submit" onClick={signIn} style={{ display: "none" }}>Sign-In</button>
+          <button id="Continuebutton" onClick={signIn} >sign up</button>
 
         </form>
         <p className="login_info">

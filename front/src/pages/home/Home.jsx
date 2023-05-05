@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./Home.css"
 import { useDispatch } from "react-redux"
 import { addUser } from "../../store/features/userSlice"
@@ -6,22 +6,38 @@ import { Slider } from "../../components/slider/Slider"
 import { useGlobalContext } from "../../context/globalContext"
 import { Product } from "../../components/product/Product"
 import { getProducts } from "../../store/store"
-
-
+import { useAuthenticateUserQuery } from '../../store/services/authService'
+import { addCategorie, addProduct, resetProducts } from "../../store/features/productSlice"
+import { categorieData } from "../../ProductData"
+import da from "../../ProductData"
 export const Home = () => {
   const products = getProducts()
   const [show, setShow] = useState(false);
   function loadMore() {
     setShow((prevState) => !prevState);
   }
-
   const dispatch = useDispatch()
   const { searchField } = useGlobalContext()
-  // dispatch(addUser({
-  //   email: "shauray.1@gmail.com",
-  //   name: "shaurya"
-  // }))
-  const filteredData = products.filter((el) => {
+  const { data } = useAuthenticateUserQuery()
+
+
+  useEffect(() => {
+    dispatch(addCategorie(categorieData))
+    da?.map((res) => dispatch(addProduct(res)))
+    return ()=>{
+      dispatch(resetProducts())// bad coding 
+    }
+  }, [])
+
+  useEffect(() => {
+    if (data) {
+      dispatch(addUser({
+        email: "shauray.1@gmail.com",
+        name: "shaurya"
+      }))
+    }
+  }, [data])
+  const filteredData = products?.filter((el) => {
     if (searchField === '') {
       return el;
     }
@@ -30,7 +46,7 @@ export const Home = () => {
     }
 
   })
-  const ProductComponent = filteredData.map((element, index) => {
+  const ProductComponent = filteredData?.map((element, index) => {
     if (show) {
       return (
         <Product

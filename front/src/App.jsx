@@ -12,22 +12,13 @@ import { Navbar } from "./components/navbar/Navbar"
 import { Footer } from "./components/footer/Footer"
 import { Categorie } from "./components/categories/Categorie"
 
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
+import { resetProducts } from "./store/features/productSlice"
+import { resetUser } from "./store/features/userSlice"
 
-
-
-import { categorieData } from "./ProductData"
-import products from "./ProductData"
 import { useDispatch } from "react-redux"
-import { addCategorie, addProduct } from "./store/features/productSlice"
-
-
 export const App = () => {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(addCategorie(categorieData))
-    products.map((res) => dispatch(addProduct(res)))
-  }, [])
+ 
 
 
   return <div className="App"><BrowserRouter>
@@ -40,11 +31,26 @@ export const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path='/order' element={<Order />} />
       </Route >
+      <Route path="/logout" element={<Logout />} />
       <Route path="*" element={<Error />} />
     </Routes>
   </BrowserRouter >
     <Footer />
   </div>
+}
+
+
+
+const Logout = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  useEffect(() => {
+    localStorage.removeItem("token")
+    dispatch(resetUser())
+    dispatch(resetProducts())
+    return navigate("/")
+  }, [])
+  return <div className=""></div>
 }
 
 export default App
