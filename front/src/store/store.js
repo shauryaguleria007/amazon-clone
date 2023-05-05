@@ -15,3 +15,7 @@ export const store = configureStore({
 export const getUser = () => {
     return useSelector((state) => state.userSlice.user)
 }
+
+export const getCart = () => {
+    return useSelector((state) => state.userSlice.cart)
+}

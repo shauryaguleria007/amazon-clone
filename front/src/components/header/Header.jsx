@@ -7,11 +7,13 @@ import Logo from "../../assets/amazon-logo.png"
 // import { ReactComponent as CartSvg } from '../../assets/Cart.svg'
 import { HeaderSearchBar } from "./HeaderSearchBar"
 import { useGlobalContext } from "../../context/globalContext"
-import { getUser } from "../../store/store"
+import { getUser, getCart } from "../../store/store"
+
 
 export const Header = () => {
     const { inputHandler } = useGlobalContext()
     const user = getUser()
+    const cart = getCart()
     const [value, setValue] = useState(false);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     let navigate = useNavigate();
@@ -112,7 +114,7 @@ export const Header = () => {
                 <Link to="/checkout" className="header__checkout">
                     <div className="header__optionBasket">
                         {/* <CartSvg /> */}
-                        <div className="header__basketCount">{1}</div>
+                        <div className="header__basketCount">{cart.length}</div>
                     </div>
                     {screenWidth > 860 ? (
                         <div className="header__basketText">Cart</div>

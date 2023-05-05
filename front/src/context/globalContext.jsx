@@ -6,7 +6,7 @@ import React, { createContext, useContext, useState } from "react"
 export const GlobalContext = createContext()
 
 export const GlobalContextProvider = ({ children }) => {
-    const [searchField, setSearchField] = useState()
+    const [searchField, setSearchField] = useState("")
 
 
     const inputHandler = (e) => {

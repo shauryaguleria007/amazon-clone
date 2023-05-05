@@ -4,7 +4,7 @@ import { Register } from "./pages/Register"
 import { Product } from "./pages/Product"
 import { Order } from "./pages/Order"
 import { Cart } from "./pages/Cart"
-import { Home } from "./pages/Home"
+import { Home } from "./pages/home/Home"
 import { Error } from "./pages/Error"
 import { Authorizer } from './components/Authorizer'
 import { Header } from "./components/header/Header"
