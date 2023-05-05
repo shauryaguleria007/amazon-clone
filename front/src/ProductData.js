@@ -263,4 +263,29 @@ const products = [
   },
 ];
 
+
+export const categorieData = [
+  {
+    image: "https://m.media-amazon.com/images/G/31/media/Jupiter_2022/toys._SS420_QL85_.jpg",
+    title: "Books & Toys",
+    text: " Upto 70% off on Books, Toys, Grooming and More.",
+    link: "books-toys"
+
+  },
+  {
+    image: "https://m.media-amazon.com/images/G/31/img22/Fashion/Event/Jupiter22/Eventpage/Phase2/Stealdeals/Women._SS400_QL85_.png",
+    title: "Fashion & Beauty",
+    text: " 50-80-% off on Fashion and Beauty Products",
+    link: "fashion-beauty"
+
+  },
+  {
+    image: "https://m.media-amazon.com/images/G/31/img22/CEPC/Jup22/ATF-Cat_shovlers/Unrec/1_Desktopshoveler_400x400._CB610725966_.gif",
+    title: "Electronics",
+    text: " Upto 75% off on Electronics and Accessories.",
+    link: "electronics"
+
+  }
+]
+
 export default products;

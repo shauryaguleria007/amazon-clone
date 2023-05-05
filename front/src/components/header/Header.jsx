@@ -111,7 +111,7 @@ export const Header = () => {
                 {screenWidth >= 650
                     ? renderNonMobileElements()
                     : renderMobileElements()}
-                <Link to="/checkout" className="header__checkout">
+                <Link to="/cart" className="header__checkout">
                     <div className="header__optionBasket">
                         {/* <CartSvg /> */}
                         <div className="header__basketCount">{cart.length}</div>

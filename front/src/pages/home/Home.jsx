@@ -3,13 +3,13 @@ import "./Home.css"
 import { useDispatch } from "react-redux"
 import { addUser } from "../../store/features/userSlice"
 import { Slider } from "../../components/slider/Slider"
-import products from "../../ProductData"
 import { useGlobalContext } from "../../context/globalContext"
 import { Product } from "../../components/product/Product"
-
+import { getProducts } from "../../store/store"
 
 
 export const Home = () => {
+  const products = getProducts()
   const [show, setShow] = useState(false);
   function loadMore() {
     setShow((prevState) => !prevState);
@@ -30,7 +30,6 @@ export const Home = () => {
     }
 
   })
-  console.log(filteredData);
   const ProductComponent = filteredData.map((element, index) => {
     if (show) {
       return (

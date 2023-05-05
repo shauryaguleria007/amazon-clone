@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Login } from "./pages/Login"
 import { Register } from "./pages/Register"
 import { Product } from "./pages/Product"
@@ -9,14 +9,30 @@ import { Error } from "./pages/Error"
 import { Authorizer } from './components/Authorizer'
 import { Header } from "./components/header/Header"
 import { Navbar } from "./components/navbar/Navbar"
-
+import { Footer } from "./components/footer/Footer"
+import { Categorie } from "./components/categories/Categorie"
 
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
+
+
+import { categorieData } from "./ProductData"
+import products from "./ProductData"
+import { useDispatch } from "react-redux"
+import { addCategorie, addProduct } from "./store/features/productSlice"
+
+
 export const App = () => {
-  return <BrowserRouter>
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(addCategorie(categorieData))
+    products.map((res) => dispatch(addProduct(res)))
+  }, [])
+
+
+  return <div className="App"><BrowserRouter>
     <Routes>
-      <Route path="/" element={<><Header /><Navbar /><Home /></>} />
+      <Route path="/" element={<><Header /><Navbar /><Home /><Categorie /></>} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/product/:productId" element={<Product />} />
@@ -25,11 +41,10 @@ export const App = () => {
         <Route path='/order' element={<Order />} />
       </Route >
       <Route path="*" element={<Error />} />
-
-
-
     </Routes>
   </BrowserRouter >
+    <Footer />
+  </div>
 }
 
 export default App
