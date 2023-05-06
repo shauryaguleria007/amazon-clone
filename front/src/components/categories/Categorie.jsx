@@ -28,7 +28,7 @@ export const Categorie = () => {
                                         res.text
                                     }
                                 </Card.Text>
-                                <Link to={`/categorie/${res.link}`}>
+                                <Link to={`/`}>
 
                                     <Button variant="primary">Shop Now</Button>
                                 </Link>
