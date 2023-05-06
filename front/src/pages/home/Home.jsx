@@ -9,6 +9,8 @@ import { getProducts } from "../../store/store"
 import { useAuthenticateUserQuery } from '../../store/services/authService'
 import { addCategorie, addProduct, resetProducts } from "../../store/features/productSlice"
 import { categorieData } from "../../ProductData"
+import { v4 as uuidv4 } from 'uuid';
+
 import da from "../../ProductData"
 export const Home = () => {
   const products = getProducts()
@@ -56,7 +58,7 @@ export const Home = () => {
       return (
         <Product
           key={index}
-          id={index}
+          id={uuidv4()}
           title={element.title}
           price={element.price}
           image={element.image}
@@ -71,7 +73,7 @@ export const Home = () => {
         return (
           <Product
             key={index}
-            id={index}
+            id={uuidv4()}
             title={element.title}
             price={element.price}
             image={element.image}

@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import "./Product.css"
-import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom"
 
 import { useDispatch } from "react-redux"
 import { addToBasket } from "../../store/features/userSlice"
 
 export const Product = ({ id, title, price, image, rating, reviews }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const handelCart = () => {
     dispatch(addToBasket({
       quantity: 1,
-      id:uuidv4(),
+      id,
       title, price, image, rating, reviews
     }))
   }
   return (
-    <div className='product'>
+    <div className='product' onClick={(e) => {
+      if (!e.target.closest(".product__button")) return navigate(`product/${id}`)
+    }}>
       <div className="product__info">
         <p>{title}</p>
         <p className="product__price">
