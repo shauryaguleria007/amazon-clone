@@ -31,3 +31,7 @@ export const getProducts = () => {
 export const getCategories = () => {
     return useSelector((state) => state.productSlice.categories)
 }
+
+export const getCartInfo = () => {
+    return useSelector((state) => state.userSlice.cartInfo)
+}

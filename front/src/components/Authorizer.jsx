@@ -15,8 +15,8 @@ export const Authorizer = () => {
         if (data) {
             setVerified(true)
             dispatch(addUser({
-                email: "shauray.1@gmail.com",
-                name: "shaurya"
+                email: `${data.mobile}`,
+                name: data.name
             }))
         }
     }, [data])

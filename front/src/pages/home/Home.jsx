@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./Home.css"
 import { useDispatch } from "react-redux"
-import { addUser } from "../../store/features/userSlice"
+import { addUser, resetUser } from "../../store/features/userSlice"
 import { Slider } from "../../components/slider/Slider"
 import { useGlobalContext } from "../../context/globalContext"
 import { Product } from "../../components/product/Product"
@@ -18,13 +18,13 @@ export const Home = () => {
   }
   const dispatch = useDispatch()
   const { searchField } = useGlobalContext()
-  const { data } = useAuthenticateUserQuery()
+  const { data, error } = useAuthenticateUserQuery()
 
 
   useEffect(() => {
     dispatch(addCategorie(categorieData))
     da?.map((res) => dispatch(addProduct(res)))
-    return ()=>{
+    return () => {
       dispatch(resetProducts())// bad coding 
     }
   }, [])
@@ -32,11 +32,16 @@ export const Home = () => {
   useEffect(() => {
     if (data) {
       dispatch(addUser({
-        email: "shauray.1@gmail.com",
-        name: "shaurya"
+        email: `${data.mobile}`,
+        name: data.name
       }))
     }
   }, [data])
+  useEffect(() => {
+    if (error) {
+      dispatch(resetUser())
+    }
+  }, [error])
   const filteredData = products?.filter((el) => {
     if (searchField === '') {
       return el;

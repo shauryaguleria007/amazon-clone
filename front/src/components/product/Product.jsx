@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import "./Product.css"
+import { v4 as uuidv4 } from 'uuid';
+
 import { useDispatch } from "react-redux"
 import { addToBasket } from "../../store/features/userSlice"
 
@@ -8,7 +10,8 @@ export const Product = ({ id, title, price, image, rating, reviews }) => {
   const handelCart = () => {
     dispatch(addToBasket({
       quantity: 1,
-      id
+      id:uuidv4(),
+      title, price, image, rating, reviews
     }))
   }
   return (
@@ -29,9 +32,9 @@ export const Product = ({ id, title, price, image, rating, reviews }) => {
         </div>
       </div>
       <img className="product__image" src={image} alt="Product" />
-      <button className="product__button" onClick={() => handelCart() }>
-      Add to basket
-    </button>
+      <button className="product__button" onClick={() => handelCart()}>
+        Add to basket
+      </button>
     </div >
   )
 }
