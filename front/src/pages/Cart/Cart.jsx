@@ -29,7 +29,7 @@ export const Cart = () => {
               title={item.title}
               image={item.image}
               reviews={item.reviews}
-              key={index}
+              key={item.id}
             />
           ))}
 
