@@ -3,7 +3,7 @@ import { Login } from "./pages/login/Login"
 import { Register } from "./pages/register/Register"
 import { Product } from "./pages/Product"
 import { Order } from "./pages/Order"
-import { Cart } from "./pages/Cart"
+import { Cart } from "./pages/Cart/Cart"
 import { Home } from "./pages/home/Home"
 import { Error } from "./pages/Error"
 import { Authorizer } from './components/Authorizer'
@@ -11,14 +11,14 @@ import { Header } from "./components/header/Header"
 import { Navbar } from "./components/navbar/Navbar"
 import { Footer } from "./components/footer/Footer"
 import { Categorie } from "./components/categories/Categorie"
-
+import { Payment } from "./pages/payment/Payment"
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
 import { resetProducts } from "./store/features/productSlice"
 import { resetUser } from "./store/features/userSlice"
 
 import { useDispatch } from "react-redux"
 export const App = () => {
- 
+
 
 
   return <div className="App"><BrowserRouter>
@@ -28,9 +28,10 @@ export const App = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/product/:productId" element={<Product />} />
       <Route path="/" element={<Authorizer />}>
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path='/order' element={<Order />} />
       </Route >
+      <Route path="/cart" element={<><Header /><Navbar /><Cart /></>} />
       <Route path="/logout" element={<Logout />} />
       <Route path="*" element={<Error />} />
     </Routes>
