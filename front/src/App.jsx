@@ -15,7 +15,13 @@ import { Payment } from "./pages/payment/Payment"
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
 import { resetProducts } from "./store/features/productSlice"
 import { resetUser } from "./store/features/userSlice"
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { Thanku } from "./pages/thanku/Thanku"
 
+const stripePromise = loadStripe(
+  'pk_test_51JdCsbSDjgMnau9ncKpDOaddNIWtdhVTTV92V4ShkTzLec033vWcRQjqEUByb1s4D6vmPmH6oMK0bkBJyBlRsStp00wQV1pNuX'
+);
 import { useDispatch } from "react-redux"
 export const App = () => {
 
@@ -28,8 +34,12 @@ export const App = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/product/:productId" element={<Product />} />
       <Route path="/" element={<Authorizer />}>
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment" element={<Elements stripe={stripePromise}>
+          <Payment />
+        </Elements>} />
         <Route path='/order' element={<Order />} />
+        <Route path='/thanku' element={<><Header /><Thanku /></>} />
+
       </Route >
       <Route path="/cart" element={<><Header /><Navbar /><Cart /></>} />
       <Route path="/logout" element={<Logout />} />
