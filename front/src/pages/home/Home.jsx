@@ -7,11 +7,7 @@ import { useGlobalContext } from "../../context/globalContext"
 import { Product } from "../../components/product/Product"
 import { getProducts } from "../../store/store"
 import { useAuthenticateUserQuery } from '../../store/services/authService'
-import { addCategorie, addProduct, resetProducts } from "../../store/features/productSlice"
-import { categorieData } from "../../ProductData"
-import { v4 as uuidv4 } from 'uuid';
 
-import da from "../../ProductData"
 export const Home = () => {
   const products = getProducts()
   const [show, setShow] = useState(false);
@@ -23,13 +19,7 @@ export const Home = () => {
   const { data, error } = useAuthenticateUserQuery()
 
 
-  useEffect(() => {
-    dispatch(addCategorie(categorieData))
-    da?.map((res) => dispatch(addProduct(res)))
-    return () => {
-      dispatch(resetProducts())// bad coding 
-    }
-  }, [])
+
 
   useEffect(() => {
     if (data) {
@@ -58,7 +48,7 @@ export const Home = () => {
       return (
         <Product
           key={index}
-          id={uuidv4()}
+          id={element.id}
           title={element.title}
           price={element.price}
           image={element.image}
@@ -73,7 +63,7 @@ export const Home = () => {
         return (
           <Product
             key={index}
-            id={uuidv4()}
+            id={element.id}
             title={element.title}
             price={element.price}
             image={element.image}
