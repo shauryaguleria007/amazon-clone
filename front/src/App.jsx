@@ -5,7 +5,7 @@ import { Product } from "./pages/product/Product"
 import { Order } from "./pages/Order"
 import { Cart } from "./pages/Cart/Cart"
 import { Home } from "./pages/home/Home"
-import { Error } from "./pages/Error"
+import { Error } from "./pages/error/Error"
 import { Authorizer } from './components/Authorizer'
 import { Header } from "./components/header/Header"
 import { Navbar } from "./components/navbar/Navbar"
@@ -51,7 +51,7 @@ export const App = () => {
       </Route >
       <Route path="/cart" element={<><Header /><Navbar /><Cart /></>} />
       <Route path="/logout" element={<Logout />} />
-      <Route path="*" element={<Error />} />
+      <Route path="*" element={<><Header /><Error /></>} />
     </Routes>
   </BrowserRouter >
     <Footer />
