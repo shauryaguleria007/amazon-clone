@@ -4,11 +4,13 @@ import "./Header.css"
 import { Link, useNavigate } from 'react-router-dom'
 
 import Logo from "../../assets/amazon-logo.png"
-// import { ReactComponent as CartSvg } from '../../assets/Cart.svg'
 import { HeaderSearchBar } from "./HeaderSearchBar"
 import { useGlobalContext } from "../../context/globalContext"
 import { getUser, getCart } from "../../store/store"
 
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const Header = () => {
     const { inputHandler } = useGlobalContext()
@@ -69,7 +71,7 @@ export const Header = () => {
                     </> : null}
                 </div>
                 <div className="header__option">
-                    <Link to="/order">
+                    <Link to="/">
                         <span className="header__optionLineOne">Returns</span><br />
                         <span className="header__optionLineTwo">& Orders</span>
                     </Link>
@@ -98,7 +100,7 @@ export const Header = () => {
                 <div className="header__locationOption">
                     <span className="header__optionLineOne">Hello</span>
                     <span className="header__locationOptionLineTwo">
-                        location Select your location
+                        <PlaceOutlinedIcon fontSize='small' /> Select your location
                     </span>
                 </div>
             ) : (
@@ -113,7 +115,7 @@ export const Header = () => {
                     : renderMobileElements()}
                 <Link to="/cart" className="header__checkout">
                     <div className="header__optionBasket">
-                        {/* <CartSvg /> */}
+                        <ShoppingCartIcon /> 
                         <div className="header__basketCount">{cart.length}</div>
                     </div>
                     {screenWidth > 860 ? (

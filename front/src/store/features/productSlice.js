@@ -15,7 +15,12 @@ export const productSlice = createSlice({
             state.categories = [...action.payload]
         },
         addProduct: (state, action) => {
-            state.products.push(action.payload)
+            let push = true
+            state.products.map((res) => {
+                if (res.title === action.payload.title) push = false
+            })
+            if (push) state.products.push(action.payload)
+            else return state
         },
         resetProducts: (state) => {
             return {
@@ -26,5 +31,5 @@ export const productSlice = createSlice({
         }
     }
 })
-export const { addCategorie, addProduct ,resetProducts} = productSlice.actions
+export const { addCategorie, addProduct, resetProducts } = productSlice.actions
 export default productSlice.reducer

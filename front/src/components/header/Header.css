@@ -216,8 +216,8 @@
   .header__basketCount {
     position: absolute;
     z-index: 1;
-    right: 10px;
-    top: -0.5vw;
+    right: 0px;
+    top: -0.9vw;
     font-weight: bold;
     color:#f08804;
   }
