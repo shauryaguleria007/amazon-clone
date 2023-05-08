@@ -3,11 +3,15 @@ import "./Register.css"
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../store/services/authService"
 import { useEffect } from 'react';
+import { Alert } from "@mui/material"
 
 export const Register = () => {
   const anchLink = `https://amazon.in/gp/help/customer/display.html/ref=ap_signin_notification_condition_of_use?ie=UTF8&nodeId=200545940`;
   const [name, setName] = useState('')
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState("")
+  const [showError, setShowError] = useState(false);
+
   const [password, setPassword] = useState('');
   const [reenterPassword, setReenderPassword] = useState('');
   const [registerUser, { data, error, isFetching }] = useRegisterUserMutation()
@@ -16,12 +20,22 @@ export const Register = () => {
 
   const signIn = async (e) => {
     e.preventDefault()
-    if (name !== "" && email !== "" && password !== "" && password === reenterPassword) {
+    if (name !== "" && email !== "" && password.length >= 6 && password === reenterPassword) {
       await registerUser({
         fullname: name,
         mobile: email,
         password
       })
+    } else if (name === "") {
+      triggerError("name cannot be empty")
+    } else if (email === "") {
+      triggerError("mobile number  cannot be empty")
+
+    } else if (password.length < 6) {
+      triggerError("password  should be greater than five characters")
+    } else if (password !== reenterPassword) {
+      triggerError("passwords do not match")
+
     }
   }
 
@@ -31,9 +45,38 @@ export const Register = () => {
     if (data) {
       console.log("data");
       return navigate("/login")
-     }
+    }
   }, [data])
-  return (
+
+  useEffect(() => {
+    if (error) {
+      const time = triggerError("credentials are not eligible ,try diffrent credentials ")
+      setEmail("")
+      setPassword("")
+      setName("")
+      setReenderPassword("")
+      return () => clearTimeout(time)
+    }
+  }, [error])
+
+  const triggerError = (message) => {
+    setMessage(`${message}`)
+    setShowError(true)
+    const time = setTimeout(() => {
+      setShowError(false)
+      setMessage("")
+    }, 3000)
+    return time
+  }
+  return (<>
+    {showError ? <Alert severity="error" style={{
+      position: "absolute",
+      top: "20px",
+      left: "50%",
+    transform:"translate(-50%,0)"
+    }}>
+      {message}
+    </Alert> : ""}
     <div className="login">
       <Link to="/">
         <img className="login__img" src="https://th.bing.com/th/id/OIP.Ku4iy6JfyZOZAKxOkfp0ewHaEK?pid=ImgDet&rs=1" alt="Signup" />
@@ -82,5 +125,6 @@ export const Register = () => {
       <br></br>
 
     </div>
+  </>
   )
 }
